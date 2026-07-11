@@ -1,0 +1,29 @@
+name: QUANT_TRADE
+
+on:
+  schedule:
+    - cron: '0 0,7,12,16,20 * * *'
+    
+  workflow_dispatch:
+
+jobs:
+  run-trading:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v
+        with:
+          python-version: "3.11"
+          
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run quant_trade
+        run: |
+          python trading_agent.py
