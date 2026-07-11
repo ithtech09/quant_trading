@@ -23,7 +23,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+          
+      - name: Create .env
+        run: |
+          echo "SENDER_EMAIL=${{secrets.SENDER_EMAIL}}" >> .env
+          echo "EMAIL_APP_PASSWORD=${{secrets.EMAIL_APP_PASSWORD}}" >> .env
+          echo "RECEIVER_EMAILS=${{secrets.RECEIVER_EMAILS}}">> .env
+          echo "NEWS_API_KEY=${{secrets.NEWS_API_KEY}}" >> .env
+          
+        
       - name: Run quant_trade
         run: |
           python trading_agent.py
